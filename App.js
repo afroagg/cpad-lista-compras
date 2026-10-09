@@ -16,33 +16,38 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
 
-      <Text style={styles.titulo}>🛒 Lista de Compras</Text>
+      <Text style={styles.titulo}>Minha Lista de Compras</Text>
       <Text style={styles.subtitulo}>
-        Adicione aqui as coisas que você precisa para a sua próxima compra
+        Adicione aqui as coisas que você precisa para a sua próxima compra :D
       </Text>
 
-      <View style={styles.linha}>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite um item"
-          value={texto}
-          onChangeText={setTexto}
-        />
-        <TouchableOpacity style={styles.botao} onPress={adicionar}>
-          <Text style={styles.textoBotao}>Adicionar</Text>
-        </TouchableOpacity>
+      <TextInput
+        style={styles.input}
+        placeholder="O que falta comprar?"
+        value={texto}
+        onChangeText={setTexto}
+      />
+      <TouchableOpacity style={styles.botao} onPress={adicionar}>
+        <Text style={styles.textoBotao}>Adicionar</Text>
+      </TouchableOpacity>
+
+      <View style={styles.contador}>
+        <Text style={styles.textoContador}>Itens na lista: {itens.length}</Text>
       </View>
 
-      <Text style={styles.contador}>Itens na lista: {itens.length}</Text>
+      {itens.length === 0 && (
+        <Text style={styles.vazio}>Ainda não tem nada por aqui...</Text>
+      )}
 
       <FlatList
         style={styles.lista}
         data={itens}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <View style={styles.item}>
+            <Text style={styles.numero}>{index + 1}</Text>
             <Text style={styles.textoItem}>{item}</Text>
           </View>
         )}
@@ -54,75 +59,85 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f3e5f5',
-    padding: 20,
-    paddingTop: 60,
+    backgroundColor: '#2a1650',
+    padding: 24,
+    paddingTop: 70,
+    alignItems: 'center',
   },
   titulo: {
-    fontSize: 30,
+    fontSize: 32,
     fontWeight: 'bold',
-    color: '#4a148c',
+    color: '#f3e8ff',
     textAlign: 'center',
   },
   subtitulo: {
     fontSize: 14,
-    color: '#7e57c2',
+    color: '#c4a5f5',
     textAlign: 'center',
     marginTop: 8,
-    marginBottom: 24,
-  },
-  linha: {
-    flexDirection: 'row',
-    marginBottom: 16,
-    width: '100%',
-    maxWidth: 450,
-    alignSelf: 'center',
+    marginBottom: 30,
   },
   input: {
-    flex: 1,
-    backgroundColor: '#fff',
-    borderWidth: 2,
-    borderColor: '#b39ddb',
-    borderRadius: 10,
-    padding: 10,
+    width: '100%',
+    maxWidth: 380,
+    backgroundColor: '#3d2470',
+    color: '#fff',
+    borderBottomWidth: 3,
+    borderColor: '#c084fc',
+    borderRadius: 6,
+    padding: 14,
     fontSize: 16,
   },
   botao: {
-    backgroundColor: '#7b1fa2',
-    borderRadius: 10,
-    padding: 16,
-    marginLeft: 8,
-    justifyContent: 'center',
+    width: '100%',
+    maxWidth: 380,
+    backgroundColor: '#e879f9',
+    borderRadius: 30,
+    padding: 14,
+    marginTop: 14,
+    alignItems: 'center',
   },
   textoBotao: {
-    color: '#fff',
+    color: '#2a1650',
     fontWeight: 'bold',
+    fontSize: 16,
   },
   contador: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#6a1b9a',
-    marginBottom: 10,
-    width: '100%',
-    maxWidth: 450,
-    alignSelf: 'center',
+    backgroundColor: '#3d2470',
+    borderRadius: 20,
+    padding: 8,
+    marginTop: 30,
+    marginBottom: 14,
+  },
+  textoContador: {
+    color: '#e9d5ff',
+    fontSize: 14,
+  },
+  vazio: {
+    color: '#9f7fd6',
+    fontSize: 16,
+    marginTop: 20,
   },
   lista: {
-    flex: 1,
     width: '100%',
-    maxWidth: 450,
-    alignSelf: 'center',
+    maxWidth: 380,
   },
   item: {
-    backgroundColor: '#fff',
-    padding: 12,
-    borderRadius: 10,
-    marginBottom: 8,
-    borderWidth: 1,
-    borderColor: '#8e24aa',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#3d2470',
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 10,
+  },
+  numero: {
+    color: '#e879f9',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 14,
   },
   textoItem: {
+    color: '#fff',
     fontSize: 16,
-    color: '#333',
   },
 });
